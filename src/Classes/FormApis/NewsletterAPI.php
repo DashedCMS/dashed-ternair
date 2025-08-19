@@ -2,19 +2,19 @@
 
 namespace Dashed\DashedTernair\Classes\FormApis;
 
-use Dashed\DashedCore\Models\Customsetting;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Facades\Http;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Facades\Storage;
 use Dashed\DashedForms\Models\FormInput;
+use Filament\Forms\Components\TextInput;
+use Dashed\DashedCore\Models\Customsetting;
 
 class NewsletterAPI
 {
     public static function dispatch(FormInput $formInput, $api)
     {
-        if (!Customsetting::get('ternair_api_username') || !Customsetting::get('ternair_api_password')) {
+        if (! Customsetting::get('ternair_api_username') || ! Customsetting::get('ternair_api_password')) {
             return;
         }
 
@@ -38,7 +38,7 @@ class NewsletterAPI
             [
                 'Key' => 'taalcode',
                 'Value' => app()->getLocale(),
-            ]
+            ],
         ];
 
         $optinHerkomst = $formInput->formFields->where('form_field_id', $api['optin_herkomsts'] ?? '')->first()->value ?? null;
@@ -83,33 +83,33 @@ class NewsletterAPI
             Select::make('email_field_id')
                 ->label('Email veld')
                 ->required()
-                ->options(fn($record) => $record ? $record->fields()->where('type', 'input')->where('input_type', 'email')->pluck('name', 'id') : []),
+                ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->where('input_type', 'email')->pluck('name', 'id') : []),
             Select::make('firstname_field_id')
                 ->label('Voornaam veld')
-                ->options(fn($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
+                ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('middlename_field_id')
                 ->label('Tussenvoegsel veld')
-                ->options(fn($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
+                ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('lastname_field_id')
                 ->label('Achternaam veld')
-                ->options(fn($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
+                ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('tid_field_id')
                 ->label('TID veld')
                 ->required()
-                ->options(fn($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
+                ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('fingerprint_field_id')
                 ->label('Fingerprint veld')
                 ->required()
-                ->options(fn($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
+                ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('optin_herkomsts')
                 ->label('Optin Herkomst veld')
-                ->options(fn($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
+                ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
         ];
     }
 
     public static function confirm(string $aapKey, ?string $tid = null): void
     {
-        if (!Customsetting::get('ternair_api_username') || !Customsetting::get('ternair_api_password')) {
+        if (! Customsetting::get('ternair_api_username') || ! Customsetting::get('ternair_api_password')) {
             return;
         }
 
@@ -137,13 +137,13 @@ class NewsletterAPI
 
     public static function unsubscribe(string $ezineCode, string $tid): void
     {
-        if (!Customsetting::get('ternair_api_username') || !Customsetting::get('ternair_api_password')) {
+        if (! Customsetting::get('ternair_api_username') || ! Customsetting::get('ternair_api_password')) {
             return;
         }
 
         $data = [
             'ezineCodes' => $ezineCode,
-            'tid' => $tid
+            'tid' => $tid,
         ];
 
         $url = 'https://campaign3-interact-api.ternairsoftware.com/subscription/unsubscribe' . '?' . http_build_query($data);
