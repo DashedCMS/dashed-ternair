@@ -2,16 +2,14 @@
 
 namespace Dashed\DashedTernair;
 
-use Dashed\DashedCore\DashedCorePlugin;
-use Dashed\DashedForms\Livewire\Form;
-use Dashed\DashedTernair\Classes\FormApis\NewsletterAPI;
-use Dashed\DashedTernair\Classes\FormWebhooks\Webhook;
-use Dashed\DashedTernair\Filament\Pages\Settings\DashedTernairSettingsPage;
-use Dashed\DashedTernair\Livewire\Confirm;
-use Dashed\DashedTernair\Livewire\Unsubscribe;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
+use Dashed\DashedTernair\Livewire\Confirm;
+use Dashed\DashedTernair\Livewire\Unsubscribe;
+use Dashed\DashedTernair\Classes\FormWebhooks\Webhook;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Dashed\DashedTernair\Classes\FormApis\NewsletterAPI;
+use Dashed\DashedTernair\Filament\Pages\Settings\DashedTernairSettingsPage;
 
 class DashedTernairServiceProvider extends PackageServiceProvider
 {

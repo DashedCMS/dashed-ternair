@@ -2,9 +2,9 @@
 
 namespace Dashed\DashedTernair;
 
-use Dashed\DashedTernair\Filament\Pages\Settings\DashedTernairSettingsPage;
 use Filament\Panel;
 use Filament\Contracts\Plugin;
+use Dashed\DashedTernair\Filament\Pages\Settings\DashedTernairSettingsPage;
 
 class DashedTernairPlugin implements Plugin
 {

@@ -2,12 +2,11 @@
 
 namespace Dashed\DashedTernair\Livewire;
 
-use Dashed\DashedCore\Controllers\Frontend\FrontendController;
-use Dashed\DashedCore\Models\Customsetting;
-use Dashed\DashedTernair\Classes\FormApis\NewsletterAPI;
-use Dashed\DashedTranslations\Models\Translation;
-use Filament\Notifications\Notification;
 use Livewire\Component;
+use Filament\Notifications\Notification;
+use Dashed\DashedCore\Models\Customsetting;
+use Dashed\DashedTranslations\Models\Translation;
+use Dashed\DashedTernair\Classes\FormApis\NewsletterAPI;
 
 class Unsubscribe extends Component
 {
@@ -21,7 +20,7 @@ class Unsubscribe extends Component
         $this->tid = request()->get('tid');
         $this->blockData = $blockData;
 
-        if (!$this->ezineCode || !$this->tid) {
+        if (! $this->ezineCode || ! $this->tid) {
             return redirect('/');
         }
     }
