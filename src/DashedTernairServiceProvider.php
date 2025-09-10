@@ -50,8 +50,7 @@ class DashedTernairServiceProvider extends PackageServiceProvider
         );
 
         $package
-            ->name('dashed-ternair')
-            ->hasViews();
+            ->name('dashed-ternair');
 
         cms()->builder('plugins', [
             new DashedTernairPlugin(),
