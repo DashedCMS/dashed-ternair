@@ -24,7 +24,7 @@ class DashedTernairServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $this->publishes([
-            __DIR__ . '/../resources/templates' => resource_path('views/' . env('SITE_THEME', 'dashed')),
+            __DIR__ . '/../resources/templates' => resource_path('views/' . config('dashed-core.site_theme')),
         ], 'dashed-templates');
 
         cms()->registerSettingsPage(DashedTernairSettingsPage::class, 'Dashed Ternair', 'bell', 'Beheer instellingen voor Ternair');

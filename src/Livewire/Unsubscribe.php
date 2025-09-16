@@ -42,6 +42,6 @@ class Unsubscribe extends Component
 
     public function render()
     {
-        return view(env('SITE_THEME', 'dashed') . '.ternair-newsletter.unsubscribe');
+        return view(config('dashed-core.site_theme') . '.ternair-newsletter.unsubscribe');
     }
 }
