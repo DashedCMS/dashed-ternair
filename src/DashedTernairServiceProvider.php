@@ -31,7 +31,7 @@ class DashedTernairServiceProvider extends PackageServiceProvider
 
         forms()->builder(
             'webhookClasses',
-            array_merge(cms()->builder('webhookClasses'), [
+            array_merge(forms()->builder('webhookClasses'), [
                 'ternair-webhook-1' => [
                     'name' => 'Ternair webhook',
                     'class' => Webhook::class,
@@ -41,7 +41,7 @@ class DashedTernairServiceProvider extends PackageServiceProvider
 
         forms()->builder(
             'apiClasses',
-            array_merge(cms()->builder('apiClasses'), [
+            array_merge(forms()->builder('apiClasses'), [
                 'ternair-newsletters-api' => [
                     'name' => 'Ternair newsletter API',
                     'class' => NewsletterAPI::class,
