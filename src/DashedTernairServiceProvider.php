@@ -6,6 +6,7 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Dashed\DashedTernair\Livewire\Confirm;
 use Dashed\DashedTernair\Livewire\Unsubscribe;
+use Dashed\DashedCore\Support\MeasuresServiceProvider;
 use Dashed\DashedTernair\Classes\FormWebhooks\Webhook;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Dashed\DashedTernair\Classes\FormApis\NewsletterAPI;
@@ -13,16 +14,20 @@ use Dashed\DashedTernair\Filament\Pages\Settings\DashedTernairSettingsPage;
 
 class DashedTernairServiceProvider extends PackageServiceProvider
 {
+    use MeasuresServiceProvider;
     public static string $name = 'dashed-ternair';
 
     public function bootingPackage()
     {
+        $this->logProviderMemory('bootingPackage:start');
         Livewire::component('dashed-ternair.newsletter-confirm', Confirm::class);
         Livewire::component('dashed-ternair.newsletter-unsubscribe', Unsubscribe::class);
+        $this->logProviderMemory('bootingPackage:end');
     }
 
     public function configurePackage(Package $package): void
     {
+        $this->logProviderMemory('configurePackage:start');
         $this->publishes([
             __DIR__ . '/../resources/templates' => resource_path('views/' . config('dashed-core.site_theme')),
         ], 'dashed-templates');
@@ -55,5 +60,6 @@ class DashedTernairServiceProvider extends PackageServiceProvider
         cms()->builder('plugins', [
             new DashedTernairPlugin(),
         ]);
+        $this->logProviderMemory('configurePackage:end');
     }
 }
