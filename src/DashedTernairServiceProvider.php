@@ -19,6 +19,44 @@ class DashedTernairServiceProvider extends PackageServiceProvider
     {
         Livewire::component('dashed-ternair.newsletter-confirm', Confirm::class);
         Livewire::component('dashed-ternair.newsletter-unsubscribe', Unsubscribe::class);
+
+        cms()->registerSettingsDocs(
+            page: \Dashed\DashedTernair\Filament\Pages\Settings\DashedTernairSettingsPage::class,
+            title: 'Ternair instellingen',
+            intro: 'Op deze pagina koppel je jouw webshop aan Ternair, een Nederlands marketing automation platform. Via deze koppeling kan je webshop webhooks van Ternair verwerken, bijvoorbeeld voor het bevestigen van een aanmelding of het verwerken van een afmelding. Werk je met meerdere sites? Dan kun je per site eigen Ternair credentials instellen.',
+            sections: [
+                [
+                    'heading' => 'Wat kun je hier instellen?',
+                    'body' => <<<MARKDOWN
+Op deze pagina vul je in:
+
+- De API credentials voor de verbinding met Ternair (header, gebruikersnaam en wachtwoord).
+- Optionele pagina\'s waar bezoekers naartoe gaan na een bevestiging of afmelding.
+MARKDOWN,
+                ],
+                [
+                    'heading' => 'Hoe zet je dit op?',
+                    'body' => <<<MARKDOWN
+1. Neem contact op met je Ternair contactpersoon en vraag of er een API integratie voor jouw webshop kan worden aangemaakt.
+2. Je ontvangt van Ternair een X-API-Application header waarde, een gebruikersnaam en een wachtwoord.
+3. Vul deze drie waarden in op deze pagina.
+4. Kies eventueel een pagina waar de gebruiker naartoe gaat nadat een aanmelding is bevestigd.
+5. Kies eventueel een pagina waar de gebruiker naartoe gaat na een afmelding.
+6. Sla de instellingen op.
+MARKDOWN,
+                ],
+            ],
+            fields: [
+                'X-API-Application header' => 'De waarde van de X-API-Application header. Deze waarde krijg je van Ternair aangeleverd op het moment dat zij een API integratie voor jou aanmaken.',
+                'API gebruikersnaam' => 'De API gebruikersnaam die je van Ternair hebt ontvangen.',
+                'API wachtwoord' => 'Het API wachtwoord dat bij de gebruikersnaam hoort. Behandel dit wachtwoord als gevoelige informatie en deel het niet met derden.',
+                'Redirect na bevestiging' => 'Optioneel. De pagina waar een bezoeker naartoe wordt gestuurd nadat een aanmelding via Ternair is bevestigd. Bijvoorbeeld een bedankt-pagina. Laat leeg als je geen redirect wilt.',
+                'Redirect na afmelding' => 'Optioneel. De pagina waar een bezoeker naartoe wordt gestuurd nadat een afmelding is verwerkt. Laat leeg als je geen redirect wilt.',
+            ],
+            tips: [
+                'Weet je niet zeker welke waarden je moet invullen? Vraag je Ternair contactpersoon om de juiste credentials.',
+            ],
+        );
     }
 
     public function configurePackage(Package $package): void
