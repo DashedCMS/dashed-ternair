@@ -9,6 +9,7 @@ use Dashed\DashedTernair\Livewire\Unsubscribe;
 use Dashed\DashedTernair\Classes\FormWebhooks\Webhook;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Dashed\DashedTernair\Classes\FormApis\NewsletterAPI;
+use Dashed\DashedTernair\Classes\PopupApis\PopupAPI as PopupNewsletterAPI;
 use Dashed\DashedTernair\Filament\Pages\Settings\DashedTernairSettingsPage;
 
 class DashedTernairServiceProvider extends PackageServiceProvider
@@ -83,6 +84,16 @@ MARKDOWN,
                 'ternair-newsletters-api' => [
                     'name' => 'Ternair newsletter API',
                     'class' => NewsletterAPI::class,
+                ],
+            ])
+        );
+
+        forms()->builder(
+            'popupApiClasses',
+            array_merge(forms()->builder('popupApiClasses'), [
+                'ternair-popup-api' => [
+                    'name' => 'Ternair nieuwsbrief',
+                    'class' => PopupNewsletterAPI::class,
                 ],
             ])
         );
