@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Storage;
 use Dashed\DashedForms\Models\FormInput;
 use Filament\Forms\Components\TextInput;
 use Dashed\DashedCore\Models\Customsetting;
+use Dashed\DashedEcommerceCore\Contracts\SupportsEmailBackfill;
 
-class NewsletterAPI
+class NewsletterAPI implements SupportsEmailBackfill
 {
     public static function dispatch(FormInput $formInput, $api)
     {
@@ -158,5 +159,61 @@ class NewsletterAPI
         if ($response->failed() && app()->isLocal()) {
             throw new \Exception('Failed to unsubscribe from newsletter with error ' . $response->body());
         }
+    }
+
+    /**
+     * Backfill-pad: voegt een (email, voornaam, achternaam) toe aan de geconfigureerde Ternair ezine.
+     */
+    public static function syncEmail(string $email, ?string $firstName, ?string $lastName, array $api): array
+    {
+        if (! Customsetting::get('ternair_api_username') || ! Customsetting::get('ternair_api_password')) {
+            return ['status' => 'skipped', 'error' => 'Ternair niet geconfigureerd'];
+        }
+
+        if (empty($api['EzineCode'])) {
+            return ['status' => 'skipped', 'error' => 'Geen EzineCode geconfigureerd'];
+        }
+
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return ['status' => 'skipped', 'error' => 'Ongeldig e-mailadres'];
+        }
+
+        $data = [
+            'EzineCode' => $api['EzineCode'],
+            'SendOptinMail' => ! empty($api['SendOptinMail']) ? 1 : 0,
+            'SendConfirmationMail' => ! empty($api['SendConfirmationMail']) ? 1 : 0,
+            'Email' => $email,
+            'IpAddress' => '0.0.0.0',
+            'Properties' => [
+                [
+                    'Key' => 'taalcode',
+                    'Value' => app()->getLocale(),
+                ],
+            ],
+        ];
+
+        if ($firstName !== null && $firstName !== '') {
+            $data['Firstname'] = $firstName;
+        }
+        if ($lastName !== null && $lastName !== '') {
+            $data['Lastname'] = $lastName;
+        }
+
+        try {
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'X-API-Application' => Customsetting::get('ternair_x_api_application_header'),
+            ])
+                ->withBasicAuth(Customsetting::get('ternair_api_username'), Customsetting::get('ternair_api_password'))
+                ->post('https://campaign3-interact-api.ternairsoftware.com/subscription/newsletter', $data);
+        } catch (\Throwable $e) {
+            return ['status' => 'failed', 'error' => mb_substr($e->getMessage(), 0, 1000)];
+        }
+
+        if ($response->successful()) {
+            return ['status' => 'success', 'error' => null];
+        }
+
+        return ['status' => 'failed', 'error' => mb_substr((string) $response->body(), 0, 1000)];
     }
 }
