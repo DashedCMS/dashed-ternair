@@ -9,9 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use Dashed\DashedForms\Models\FormInput;
 use Filament\Forms\Components\TextInput;
 use Dashed\DashedCore\Models\Customsetting;
-use Dashed\DashedEcommerceCore\Contracts\SupportsEmailBackfill;
 
-class NewsletterAPI implements SupportsEmailBackfill
+class NewsletterAPI
 {
     public static function dispatch(FormInput $formInput, $api)
     {

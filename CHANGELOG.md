@@ -2,6 +2,11 @@
 
 All notable changes to `dashed-ternair` will be documented in this file.
 
+## v4.0.7 - 2026-06-03
+
+### Fixed
+- `Classes\FormApis\NewsletterAPI` implementeert niet langer `Dashed\DashedEcommerceCore\Contracts\SupportsEmailBackfill`. Die hard-dependency veroorzaakte een fatal error (`Interface "...SupportsEmailBackfill" not found`) in projecten zonder `dashed-ecommerce-core` (bv. niet-webshop sites) zodra de class werd geautoload, o.a. op de forms-edit pagina. De `syncEmail()`-methode blijft bestaan; `dashed-ecommerce-core` detecteert backfill-providers via `method_exists(..., 'syncEmail')` (`SyncEmailToApiJob`), dus de e-mail-backfill blijft werken zonder de interface-implementatie.
+
 ## v4.0.5 - 2026-05-05
 
 ### Added
