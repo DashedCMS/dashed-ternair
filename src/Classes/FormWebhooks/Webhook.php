@@ -25,7 +25,7 @@ class Webhook
 
         foreach (str(str($formInput->from_url)->explode('?')->last())->explode('&') as $query) {
             $query = str($query)->explode('=');
-            $data[$query[0]] = $query[1] ?? '';
+            // Niet top-level mergen: from_url-parameters mogen vertrouwde velden niet overschrijven (HPP).
             $data['queryParams'][$query[0]] = $query[1] ?? '';
         }
 
