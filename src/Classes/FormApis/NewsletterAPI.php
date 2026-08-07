@@ -74,35 +74,35 @@ class NewsletterAPI
     {
         return [
             TextInput::make('EzineCode')
-                ->label('Ezine code')
+                ->label(__('Ezine code'))
                 ->required(),
             Toggle::make('SendOptinMail')
-                ->label('Stuur optin mail'),
+                ->label(__('Stuur optin mail')),
             Toggle::make('SendConfirmationMail')
-                ->label('Stuur bevestigingsmail'),
+                ->label(__('Stuur bevestigingsmail')),
             Select::make('email_field_id')
-                ->label('Email veld')
+                ->label(__('Email veld'))
                 ->required()
                 ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->where('input_type', 'email')->pluck('name', 'id') : []),
             Select::make('firstname_field_id')
-                ->label('Voornaam veld')
+                ->label(__('Voornaam veld'))
                 ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('middlename_field_id')
-                ->label('Tussenvoegsel veld')
+                ->label(__('Tussenvoegsel veld'))
                 ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('lastname_field_id')
-                ->label('Achternaam veld')
+                ->label(__('Achternaam veld'))
                 ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('tid_field_id')
-                ->label('TID veld')
+                ->label(__('TID veld'))
                 ->required()
                 ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('fingerprint_field_id')
-                ->label('Fingerprint veld')
+                ->label(__('Fingerprint veld'))
                 ->required()
                 ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
             Select::make('optin_herkomsts')
-                ->label('Optin Herkomst veld')
+                ->label(__('Optin Herkomst veld'))
                 ->options(fn ($record) => $record ? $record->fields()->where('type', 'input')->pluck('name', 'id') : []),
         ];
     }

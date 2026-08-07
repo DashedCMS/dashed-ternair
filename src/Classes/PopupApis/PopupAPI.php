@@ -46,12 +46,12 @@ class PopupAPI
     {
         return [
             TextInput::make('EzineCode')
-                ->label('Ezine code')
+                ->label(__('Ezine code'))
                 ->required(),
             Toggle::make('SendOptinMail')
-                ->label('Stuur optin mail'),
+                ->label(__('Stuur optin mail')),
             Toggle::make('SendConfirmationMail')
-                ->label('Stuur bevestigingsmail'),
+                ->label(__('Stuur bevestigingsmail')),
         ];
     }
 }

@@ -56,13 +56,13 @@ class DashedTernairSettingsPage extends Page
         foreach ($sites as $site) {
             $newSchema = [
                 TextInput::make("ternair_x_api_application_header_{$site['id']}")
-                    ->label('X-API-Application-Header voor de Ternair API')
+                    ->label(__('X-API-Application-Header voor de Ternair API'))
                     ->reactive(),
                 TextInput::make("ternair_api_username_{$site['id']}")
-                    ->label('API username')
+                    ->label(__('API username'))
                     ->reactive(),
                 TextInput::make("ternair_api_password_{$site['id']}")
-                    ->label('API wachtwoord')
+                    ->label(__('API wachtwoord'))
                     ->password()
                     ->reactive(),
                 linkHelper()->field("ternair_redirect_after_confirm_url_{$site['id']}", false, 'Redirect na bevestigen'),
@@ -105,7 +105,7 @@ class DashedTernairSettingsPage extends Page
         $this->form->fill($formState);
 
         Notification::make()
-            ->title('De Dashed Ternair instellingen zijn opgeslagen')
+            ->title(__('De Dashed Ternair instellingen zijn opgeslagen'))
             ->success()
             ->send();
     }
