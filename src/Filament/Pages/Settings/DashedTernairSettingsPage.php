@@ -21,7 +21,7 @@ class DashedTernairSettingsPage extends Page
     protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-bell';
     protected static bool $shouldRegisterNavigation = false;
     protected static ?string $navigationLabel = 'Formulier instellingen';
-    protected static string | UnitEnum | null $navigationGroup = 'Overige';
+    protected static string | UnitEnum | null $navigationGroup = 'Systeem';
     protected static ?string $title = 'Formulier instellingen';
 
     protected string $view = 'dashed-core::settings.pages.default-settings';
